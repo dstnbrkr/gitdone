@@ -34,7 +34,11 @@ def rm(taskid)
 end
 
 def list
-  tasks.each_with_index { |task, i| puts "#{i} #{task}" }
+  if tasks.size == 0
+    puts "No tasks."
+  else
+    tasks.each_with_index { |task, i| puts "#{i} #{task}" }
+  end
 end
 
 def top
@@ -45,6 +49,10 @@ def commit(task_id)
   message = tasks[task_id]
   rm task_id
   exec "git commit -am '#{message}'"
+end
+
+def edit
+  exec "#{ENV['EDITOR']} #{TASKS_PATH}"
 end
 
 case ARGV[0]
@@ -64,7 +72,7 @@ case ARGV[0]
       puts "usage: gitodo rm PATH"
     end 
   when "edit"
-    puts "editing"
+    edit
   when "list"
     list
   when "top"
