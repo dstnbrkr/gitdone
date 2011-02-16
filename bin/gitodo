@@ -50,7 +50,7 @@ def top
 end
 
 def commit(task_id)
-  `git commit -am '#{tasks[task_id]}'`
+  puts `git commit -am '#{tasks[task_id]}'`
   if $? == 0
     rm task_id
   end
