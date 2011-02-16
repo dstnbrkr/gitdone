@@ -1,13 +1,23 @@
 #!/usr/bin/env ruby
 
+TASKS_FILE = ".git-issues"
+TASKS_PATH = File.join [ ENV['HOME'], TASKS_FILE ]
+
+def tasks_file(&block)
+  File.open(TASKS_PATH, "a+", 0644) { |f| yield f }
+end
+
 def add(task)
-  puts "added #{task}"
+  tasks_file { |f|
+    f.puts(task)
+  }
 end
 
 case ARGV[0]
   when "add"
     if ARGV[1]
       add ARGV[1]
+      puts "Added task: #{ARGV[1]}"
     else
       puts "Not enough arguments."
       puts "usage: git-issues add PATH"
