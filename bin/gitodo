@@ -5,20 +5,34 @@ require 'enumerator'
 TASKS_FILE = ".gitodo"
 TASKS_PATH = File.join [ ENV['HOME'], TASKS_FILE ]
 
-def tasks_file(&block)
-  File.open(TASKS_PATH, "a+", 0644) { |f| yield f }
+def tasks_file(mode, &block)
+  File.open(TASKS_PATH, mode, 0644) { |f| yield f }
 end
 
 def tasks
-  tasks_file { |f|
+  tasks_file("r") { |f|
     f.readlines
   }
 end
 
 def add(task)
-  tasks_file { |f|
+  tasks_file("a+") { |f|
     f.puts(task)
   }
+end
+
+def write_tasks(tasks)
+  tasks_file("w+") { |f|
+    tasks.each { |task|
+      f.puts task
+    }
+  }
+end
+
+def rm(taskid)
+  all_tasks = tasks
+  all_tasks.delete_at(taskid)
+  write_tasks(all_tasks)
 end
 
 def list
@@ -36,7 +50,7 @@ case ARGV[0]
     end 
   when "rm"
     if ARGV[1]
-      rm ARGV[1]
+      rm ARGV[1].to_i
     else
       puts "Not enough arguments."
       puts "usage: gitodo rm PATH"
