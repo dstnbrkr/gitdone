@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-TASKS_FILE = ".git-issues"
+TASKS_FILE = ".gitodo"
 TASKS_PATH = File.join [ ENV['HOME'], TASKS_FILE ]
 
 def tasks_file(&block)
@@ -20,14 +20,14 @@ case ARGV[0]
       puts "Added task: #{ARGV[1]}"
     else
       puts "Not enough arguments."
-      puts "usage: git-issues add PATH"
+      puts "usage: gitodo add PATH"
     end 
   when "rm"
     if ARGV[1]
       rm ARGV[1]
     else
       puts "Not enough arguments."
-      puts "usage: git-issues rm PATH"
+      puts "usage: gitodo rm PATH"
     end 
   when "edit"
     puts "editing"
@@ -42,9 +42,9 @@ case ARGV[0]
       puts "commit top task"
     end
   when nil
-    puts "Type 'git-issues help' for usage." 
+    puts "Type gitodo help' for usage." 
   else
     puts "Unknown command: #{ARGV[0]}"
-    puts "Type 'git-issues help' for usage." 
+    puts "Type gitodo help' for usage." 
 end
 
