@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'enumerator'
+
 TASKS_FILE = ".gitodo"
 TASKS_PATH = File.join [ ENV['HOME'], TASKS_FILE ]
 
@@ -7,10 +9,20 @@ def tasks_file(&block)
   File.open(TASKS_PATH, "a+", 0644) { |f| yield f }
 end
 
+def tasks
+  tasks_file { |f|
+    f.readlines
+  }
+end
+
 def add(task)
   tasks_file { |f|
     f.puts(task)
   }
+end
+
+def list
+  tasks.each_with_index { |task, i| puts "#{i} #{task}" }
 end
 
 case ARGV[0]
@@ -32,7 +44,7 @@ case ARGV[0]
   when "edit"
     puts "editing"
   when "list"
-    puts "listing"
+    list
   when "top"
     puts "top"
   when "commit"
