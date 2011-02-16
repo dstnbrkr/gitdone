@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'enumerator'
-
 TASKS_FILE = ".gitodo"
 TASKS_PATH = File.join [ ENV['HOME'], TASKS_FILE ]
 
@@ -39,6 +37,10 @@ def list
   tasks.each_with_index { |task, i| puts "#{i} #{task}" }
 end
 
+def top
+  tasks[0]
+end
+
 case ARGV[0]
   when "add"
     if ARGV[1]
@@ -60,12 +62,13 @@ case ARGV[0]
   when "list"
     list
   when "top"
-    puts "top"
+    puts top
   when "commit"
     if ARGV[1]
-      puts "committing #{ARGV[1]}"
     else
-      puts "commit top task"
+      message = top
+      rm 0
+      exec "git commit -am #{message}"
     end
   when nil
     puts "Type gitodo help' for usage." 
