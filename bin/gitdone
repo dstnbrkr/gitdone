@@ -26,7 +26,7 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-TASKS_FILE = ".gitodo"
+TASKS_FILE = ".gitdone"
 TASKS_PATH = File.join [ ENV['HOME'], TASKS_FILE ]
 
 def tasks_file(mode, &block)
@@ -94,14 +94,14 @@ case ARGV[0]
       else
         puts "Too many arguments."
       end
-      puts "usage: gitodo add PATH"
+      puts "usage: gitdone add PATH"
     end 
   when "rm"
     if ARGV[1]
       rm ARGV[1].to_i
     else
       puts "Not enough arguments."
-      puts "usage: gitodo rm PATH"
+      puts "usage: gitdone rm PATH"
     end 
   when "edit"
     edit
@@ -112,9 +112,9 @@ case ARGV[0]
   when "commit"
     commit(ARGV[1].to_i)
   when nil
-    puts "Type gitodo help' for usage." 
+    puts "Type gitdone help' for usage." 
   else
     puts "Unknown command: #{ARGV[0]}"
-    puts "Type gitodo help' for usage." 
+    puts "Type gitdone help' for usage." 
 end 
 
