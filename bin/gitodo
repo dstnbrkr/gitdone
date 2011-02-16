@@ -50,12 +50,10 @@ def top
 end
 
 def commit(task_id)
-  # FIXME: only rm the task_id if the commit succeeded.
-  # or
-  # make sure is something to commit at least
-  message = tasks[task_id]
-  rm task_id
-  exec "git commit -am '#{message}'"
+  `git commit -am '#{tasks[task_id]}'`
+  if $? == 0
+    rm task_id
+  end
 end
 
 def edit
