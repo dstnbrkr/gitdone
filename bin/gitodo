@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# Copyright (c) 2011, Dustin Barker <dustin.barker@gmail.com>
+# All rights reserved.
+
 TASKS_FILE = ".gitodo"
 TASKS_PATH = File.join [ ENV['HOME'], TASKS_FILE ]
 
@@ -48,6 +51,8 @@ end
 
 def commit(task_id)
   # FIXME: only rm the task_id if the commit succeeded.
+  # or
+  # make sure is something to commit at least
   message = tasks[task_id]
   rm task_id
   exec "git commit -am '#{message}'"
