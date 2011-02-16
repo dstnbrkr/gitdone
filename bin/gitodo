@@ -41,6 +41,12 @@ def top
   tasks[0]
 end
 
+def commit(task_id)
+  message = tasks[task_id]
+  rm task_id
+  exec "git commit -am '#{message}'"
+end
+
 case ARGV[0]
   when "add"
     if ARGV[1]
@@ -64,12 +70,7 @@ case ARGV[0]
   when "top"
     puts top
   when "commit"
-    if ARGV[1]
-    else
-      message = top
-      rm 0
-      exec "git commit -am #{message}"
-    end
+    commit(ARGV[1].to_i)
   when nil
     puts "Type gitodo help' for usage." 
   else
