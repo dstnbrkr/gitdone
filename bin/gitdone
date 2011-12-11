@@ -80,7 +80,12 @@ def commit(task_id)
 end
 
 def edit
-  exec "#{ENV['EDITOR']} #{TASKS_PATH}"
+  editor = ENV['EDITOR']
+  if editor.nil? || editor.empty?
+    puts "No EDITOR defined"
+  else
+    exec "#{editor} #{TASKS_PATH}"
+  end
 end
 
 case ARGV[0]
