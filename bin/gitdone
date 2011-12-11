@@ -95,14 +95,14 @@ case ARGV[0]
         puts "Too many arguments."
       end
       puts "usage: gitdone add PATH"
-    end 
+    end
   when "rm"
     if ARGV[1]
       rm ARGV[1].to_i
     else
       puts "Not enough arguments."
       puts "usage: gitdone rm PATH"
-    end 
+    end
   when "edit"
     edit
   when "list"
@@ -112,7 +112,16 @@ case ARGV[0]
   when "commit"
     commit(ARGV[1].to_i)
   when nil
-    puts "Type gitdone help' for usage." 
+    puts <<eos
+usage: git <command>
+
+The most commonly used commands are:
+     add    Plan a commit
+     list   Show planned commits
+     next   Show next commit
+     commit Execute (git commit -am <message>) next commit
+
+eos
   else
     puts "Unknown command: #{ARGV[0]}"
     puts "Type gitdone help' for usage." 
