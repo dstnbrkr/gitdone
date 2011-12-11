@@ -27,10 +27,30 @@
 #
 
 TASKS_FILE = ".gitdone"
-TASKS_PATH = File.join [ ENV['HOME'], TASKS_FILE ]
+
+def local_tasks_file_path(parent = Dir.pwd)
+  path = File.join(parent, TASKS_FILE)
+  if File.exists?(path)
+    path
+  else
+    segments = File.split(parent)
+    nsegments = segments.size
+    if nsegments <= 1
+      nil
+    else
+      grandparent = File.join(segments.take(nsegments - 1))
+      local_tasks_file_path(grandparent)
+    end
+  end
+end
 
 def tasks_file(mode, &block)
-  File.open(TASKS_PATH, mode, 0644) { |f| yield f }
+  path = local_tasks_file_path
+  if path
+    File.open(path, mode, 0644) { |f| yield f }
+  else
+    puts "No .gitdone file found. Run `gitdone init' to create one."
+  end
 end
 
 def tasks
