@@ -6,7 +6,7 @@ Plan your commits
 Purpose
 -------
 
-Found a bug in code unrelated to your pending commit? Plan the next commit with gitdone. Where `git log` displays past commits, gitdone is a list of future (planned) commits. Use gitdone to manage your next commit so you don't lose focus on the present.
+Found a bug in code unrelated to your pending commit? Plan your next commit with gitdone. Where `git log` displays past commits, gitdone is a list of future (planned) commits. Use gitdone to manage your next commit so you don't lose focus on the present.
 
 Simple usage example:
 ---------------------
