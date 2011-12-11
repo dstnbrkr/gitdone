@@ -88,6 +88,17 @@ def edit
   end
 end
 
+usage =<<eos
+usage: git <command>
+
+The most commonly used commands are:
+     add    Plan a commit
+     list   Show planned commits
+     next   Show next commit
+     commit Execute (git commit -am <message>) next commit
+
+eos
+
 case ARGV[0]
   when "add"
     if ARGV.size == 2
@@ -116,17 +127,10 @@ case ARGV[0]
     puts top
   when "commit"
     commit(ARGV[1].to_i)
+  when "help"
+    puts usage
   when nil
-    puts <<eos
-usage: git <command>
-
-The most commonly used commands are:
-     add    Plan a commit
-     list   Show planned commits
-     next   Show next commit
-     commit Execute (git commit -am <message>) next commit
-
-eos
+    puts usage
   else
     puts "Unknown command: #{ARGV[0]}"
     puts "Type gitdone help' for usage." 
