@@ -88,6 +88,14 @@ def list
   end
 end
 
+def init
+  if File.exists?(TASKS_FILE)
+    puts ".gitdone file already exists"
+  else
+    File.new(TASKS_FILE, 'w+', 0644)
+  end
+end
+
 def top
   tasks[0]
 end
@@ -113,9 +121,10 @@ usage: git <command>
 
 The most commonly used commands are:
      add    Plan a commit
+     commit Execute (git commit -am <message>) next commit
+     init   Create a .gitdone file in the current directory
      list   Show planned commits
      next   Show next commit
-     commit Execute (git commit -am <message>) next commit
 
 eos
 
@@ -149,6 +158,8 @@ case ARGV[0]
     commit(ARGV[1].to_i)
   when "help"
     puts usage
+  when "init"
+    init
   when nil
     puts usage
   else
