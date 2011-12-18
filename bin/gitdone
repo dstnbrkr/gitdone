@@ -139,14 +139,14 @@ case ARGV[0]
       else
         puts "Too many arguments."
       end
-      puts "usage: gitdone add PATH"
+      puts "usage: gitdone add <commit message>"
     end
   when "rm"
     if ARGV[1]
       rm ARGV[1].to_i
     else
       puts "Not enough arguments."
-      puts "usage: gitdone rm PATH"
+      puts "usage: gitdone rm <task index>"
     end
   when "edit"
     edit
