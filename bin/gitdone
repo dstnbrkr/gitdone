@@ -108,11 +108,11 @@ def commit(task_id)
 end
 
 def edit
-  editor = ENV['EDITOR']
+  editor = ENV['GITDONE_EDITOR'] || ENV['EDITOR']
   if editor.nil? || editor.empty?
-    puts "No EDITOR defined"
+    puts "No EDITOR or GITDONE_EDITOR defined in environment"
   else
-    exec "#{editor} #{TASKS_PATH}"
+    exec "#{editor} #{local_tasks_file_path}"
   end
 end
 
